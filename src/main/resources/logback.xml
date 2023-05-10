@@ -10,7 +10,7 @@
     </appender>
 
     <!-- Logger for our app -->
-    <logger name="cz.cvut.kbss.ear" level="DEBUG" additivity="false">
+    <logger name="cz.cvut.fel.bp.leisureportalbackend" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT"/>
     </logger>
 
