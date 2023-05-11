@@ -1,9 +1,5 @@
 package cz.cvut.fel.bp.leisureportalbackend.config;
 
-import org.apache.tomcat.util.http.Rfc6265CookieProcessor;
-import org.apache.tomcat.util.http.SameSiteCookies;
-import org.springframework.boot.web.embedded.tomcat.TomcatContextCustomizer;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -14,12 +10,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     private final long MAX_AGE_SECS = 3600;
 
-
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
                 .allowedOrigins("http://localhost:3000").allowCredentials(true)
-                .allowedOrigins("https://leisureportal-frontend.herokuapp.com").allowCredentials(true)
+                .allowedOrigins("https://leisureportal-frontend.herokuapp.com/").allowCredentials(true)
                 .allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE")
                 .maxAge(MAX_AGE_SECS);
     }
