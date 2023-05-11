@@ -4,7 +4,6 @@ import cz.cvut.fel.bp.leisureportalbackend.model.Activity;
 import cz.cvut.fel.bp.leisureportalbackend.model.User;
 import cz.cvut.fel.bp.leisureportalbackend.model.UserType;
 import cz.cvut.fel.bp.leisureportalbackend.rest.util.RestUtils;
-import cz.cvut.fel.bp.leisureportalbackend.security.SecurityConstants;
 import cz.cvut.fel.bp.leisureportalbackend.security.SecurityUtils;
 import cz.cvut.fel.bp.leisureportalbackend.service.ActivityService;
 import cz.cvut.fel.bp.leisureportalbackend.service.UserService;
@@ -22,7 +21,6 @@ import javax.annotation.security.PermitAll;
 import java.security.Principal;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000/", allowCredentials = "true")
 @RequestMapping("/rest/users")
 public class UserController {
 
