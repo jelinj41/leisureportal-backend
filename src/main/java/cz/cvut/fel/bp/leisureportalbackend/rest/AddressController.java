@@ -97,7 +97,7 @@ public class AddressController {
         return c;
     }
 
-    @PermitAll
+    //@PermitAll
     @GetMapping(value = "/myAddresses", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Address> myAddresses() {
         final User user = securityUtils.getCurrentUser();
