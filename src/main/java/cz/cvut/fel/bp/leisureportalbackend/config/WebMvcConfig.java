@@ -14,14 +14,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     private final long MAX_AGE_SECS = 3600;
 
-    @Bean
-    public TomcatContextCustomizer sameSiteCookiesConfig() {
-        return context -> {
-            final Rfc6265CookieProcessor cookieProcessor = new Rfc6265CookieProcessor();
-            cookieProcessor.setSameSiteCookies(SameSiteCookies.NONE.getValue());
-            context.setCookieProcessor(cookieProcessor);
-        };
-    }
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
