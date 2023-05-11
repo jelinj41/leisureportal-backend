@@ -12,7 +12,10 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**").allowedMethods("*")
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:3000").allowCredentials(true)
+                .allowedOrigins("https://leisureportal-frontend.herokuapp.com").allowCredentials(true)
+                .allowedMethods("HEAD", "OPTIONS", "GET", "POST", "PUT", "PATCH", "DELETE")
                 .maxAge(MAX_AGE_SECS);
     }
 
