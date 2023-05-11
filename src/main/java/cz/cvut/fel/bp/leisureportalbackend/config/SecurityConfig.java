@@ -80,19 +80,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.cors().configurationSource(corsConfigurationSource())
-                .and().csrf().disable().authorizeRequests().anyRequest().permitAll().and()
-                .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
-                .and().headers().frameOptions().sameOrigin()
-                .and().authenticationProvider(authenticationProvider)
-                .formLogin().successHandler(authenticationSuccessHandler)
-                .failureHandler(authenticationFailureHandler)
-                .loginProcessingUrl(SecurityConstants.SECURITY_CHECK_URI)
-                .usernameParameter(SecurityConstants.USERNAME_PARAM).passwordParameter(SecurityConstants.PASSWORD_PARAM)
-                .and()
-                .logout().invalidateHttpSession(true).deleteCookies(COOKIES_TO_DESTROY)
-                .logoutUrl(SecurityConstants.LOGOUT_URI).logoutSuccessHandler(logoutSuccessHandler)
-                .and().sessionManagement().maximumSessions(1);
+        http.cors().and().csrf().disable().authorizeRequests().anyRequest().permitAll().and()
+            .exceptionHandling().authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+            .and().headers().frameOptions().sameOrigin()
+            .and().authenticationProvider(authenticationProvider)
+            .formLogin().successHandler(authenticationSuccessHandler)
+            .failureHandler(authenticationFailureHandler)
+            .loginProcessingUrl(SecurityConstants.SECURITY_CHECK_URI)
+            .usernameParameter(SecurityConstants.USERNAME_PARAM).passwordParameter(SecurityConstants.PASSWORD_PARAM)
+            .and()
+            .logout().invalidateHttpSession(true).deleteCookies(COOKIES_TO_DESTROY)
+            .logoutUrl(SecurityConstants.LOGOUT_URI).logoutSuccessHandler(logoutSuccessHandler)
+            .and().sessionManagement().maximumSessions(1);
     }
 
     @Override
