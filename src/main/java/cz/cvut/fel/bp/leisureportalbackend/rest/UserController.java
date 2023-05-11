@@ -65,8 +65,8 @@ public class UserController {
     /**
      * Return current user.
      */
-    //@PermitAll
-    @PreAuthorize("hasAnyAuthority('USERTYPE_ADMIN', 'USERTYPE_USER', 'USERTYPE_GUEST', 'USERTYPE_ORGANIZER')")
+    @PermitAll
+    //@PreAuthorize("hasAnyAuthority('USERTYPE_ADMIN', 'USERTYPE_USER', 'USERTYPE_GUEST', 'USERTYPE_ORGANIZER')")
     @GetMapping(value = "/current", produces = MediaType.APPLICATION_JSON_VALUE)
     public User getCurrent() {
         final User user = userService.find(securityUtils.getCurrentUser().getId());
