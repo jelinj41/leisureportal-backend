@@ -51,7 +51,7 @@ public class UserController {
      *
      * @param id Race id
      */
-    @PreAuthorize("hasAnyAuthority('USERTYPE_USER')")
+    @PreAuthorize("hasAnyAuthority('USERTYPE_USER', 'USERTYPE_ORGANIZER') " )
     @PostMapping(value = "/registerForActivity/{id}")
     public void registerForActivity(@PathVariable Integer id) {
         User user = this.getCurrent();
