@@ -40,7 +40,7 @@ public class ParticipationController {
         LOG.debug("Updated activity {}.", participation);
     }
 
-    @PreAuthorize("hasAnyAuthority('USERTYPE_ADMIN', 'USERTYPE_USER')")
+    @PreAuthorize("hasAnyAuthority('USERTYPE_ADMIN', 'USERTYPE_USER', 'USERTYPE_ORGANIZER')")
     @GetMapping(value = "/myParticipations")
     public List<Participation> myParticipations() {
         final User user = securityUtils.getCurrentUser();
