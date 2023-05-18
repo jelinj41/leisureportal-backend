@@ -87,7 +87,7 @@ public class UserController {
         return user;
     }
 
-    @PreAuthorize("hasAnyAuthority('USERTYPE_USER')")
+    @PreAuthorize("hasAnyAuthority('USERTYPE_USER', 'USERTYPE_ORGANIZER')")
     @PostMapping(value = "/exit/{id}")
     public void exitActivity(@PathVariable Integer id) {
         final User user = userService.find(getCurrent().getId());
