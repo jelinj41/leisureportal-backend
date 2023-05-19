@@ -36,6 +36,7 @@ public class Address extends AbstractEntity {
     @Basic(optional = false)
     @Column(nullable = false)
     @NotBlank(message = "ZIP code cannot be blank")
+    @Size(max = 5, min = 5)
     private String zipCode;
 
     @Basic(optional = false)

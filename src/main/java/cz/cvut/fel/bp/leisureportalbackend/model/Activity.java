@@ -71,16 +71,22 @@ public class Activity extends AbstractEntity{
     @NotBlank
     @Basic(optional = false)
     @Column(nullable = false)
+    @Min(value = 0, message = "Min 0")
+    @Max(value = 100000, message = "Max 100 000")
     private Integer capacity;
 
     @NotBlank
     @Basic(optional = false)
     @Column(nullable = false)
+    @Min(value = 0, message = "Min 0")
+    @Max(value = 150, message = "Max 150")
     private Integer min_age;
 
     @NotBlank
     @Basic(optional = false)
     @Column(nullable = false)
+    @Min(value = 0, message = "Min 0")
+    @Max(value = 150, message = "Max 150")
     private Integer max_age;
 
     @NotBlank
@@ -123,8 +129,9 @@ public class Activity extends AbstractEntity{
     public Activity(@Size(max = 255, min = 3, message = "Name has to be from 3 to 255 characters.")  @NotBlank(message = "Name has to be from 3 to 255 characters.") String name,
                     @Size(max = 3000, min = 0, message = "Max 3000 characters.") String description,
                     @Min(value = 0, message = "Min 0") @Max(value = 10000, message = "Max 10 000") double price,
-                    @Min(value = 0, message = "Min 0") @Max(value = 10000, message = "Max 10 000") Integer capacity,
-                    Integer min_age, Integer max_age,
+                    @Min(value = 0, message = "Min 0") @Max(value = 10000, message = "Max 100 000") Integer capacity,
+                    @Min(value = 0, message = "Min 0") @Max(value = 150, message = "Max 150") Integer min_age,
+                    @Min(value = 0, message = "Min 0") @Max(value = 150, message = "Max 150") Integer max_age,
                     Address address, Category category,
                     User author
     ) {
