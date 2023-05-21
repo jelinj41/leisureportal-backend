@@ -135,7 +135,7 @@ public class UserController {
      * @return ResponseEntity with a status of 200 if the update was successful, or appropriate error responses.
      */
     @PermitAll
-    @PutMapping(value = "/{id}")
+    @PatchMapping(value = "/{id}")
     public ResponseEntity<Void> updateUser(@PathVariable Integer id, @RequestBody User user) {
         User current = securityUtils.getCurrentUser();
         User original_user = userService.find(id);
