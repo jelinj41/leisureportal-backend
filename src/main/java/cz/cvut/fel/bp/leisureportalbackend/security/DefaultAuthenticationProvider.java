@@ -29,6 +29,13 @@ public class DefaultAuthenticationProvider implements AuthenticationProvider {
         this.passwordEncoder = passwordEncoder;
     }
 
+    /**
+     * Performs authentication for the provided authentication object.
+     *
+     * @param authentication The authentication object.
+     * @return An authenticated authentication object if successful.
+     * @throws AuthenticationException If authentication fails.
+     */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         final String username = authentication.getPrincipal().toString();
@@ -44,6 +51,12 @@ public class DefaultAuthenticationProvider implements AuthenticationProvider {
         return SecurityUtils.setCurrentUser(userDetails);
     }
 
+    /**
+     * Checks if the authentication provider supports the provided authentication class.
+     *
+     * @param aClass The authentication class to check.
+     * @return True if the provider supports the authentication class, false otherwise.
+     */
     @Override
     public boolean supports(Class<?> aClass) {
         return UsernamePasswordAuthenticationToken.class.isAssignableFrom(aClass) ||

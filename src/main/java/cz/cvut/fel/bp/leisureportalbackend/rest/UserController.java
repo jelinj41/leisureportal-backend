@@ -20,6 +20,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.security.PermitAll;
 import java.security.Principal;
 
+/**
+ * Controller class for User
+ */
 @RestController
 @RequestMapping("/rest/users")
 public class UserController {
@@ -37,6 +40,12 @@ public class UserController {
         this.securityUtils = securityUtils;
     }
 
+    /**
+     * Registers a new user.
+     *
+     * @param user The JSON representation of the user to register.
+     * @return ResponseEntity with a status of 201.
+     */
     @PreAuthorize("(!#user.isAdmin() && anonymous) || hasRole('ROLE_ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Void> register(@RequestBody User user) {
@@ -47,9 +56,9 @@ public class UserController {
     }
 
     /**
-     * Registers current user for Activity.
+     * Registers the current user for an Activity.
      *
-     * @param id Race id
+     * @param id The ID of the Activity to register for.
      */
     @PreAuthorize("hasAnyAuthority('USERTYPE_USER', 'USERTYPE_ORGANIZER') " )
     @PostMapping(value = "/registerForActivity/{id}")
@@ -63,7 +72,9 @@ public class UserController {
     }
 
     /**
-     * Return current user.
+     * Returns the current user.
+     *
+     * @return The current User.
      */
     //@PermitAll
     @PreAuthorize("hasAnyAuthority('USERTYPE_ADMIN', 'USERTYPE_USER', 'USERTYPE_GUEST', 'USERTYPE_ORGANIZER')")
@@ -73,6 +84,12 @@ public class UserController {
         return user;
     }
 
+    /**
+     * Checks if a user is logged in.
+     *
+     * @param principal The Principal object representing the current user.
+     * @return true if the user is logged in, false otherwise.
+     */
     @PermitAll
     @GetMapping(value = "/isLoggedIn", produces = MediaType.APPLICATION_JSON_VALUE)
     public Boolean isLoggedIn(Principal principal) {
@@ -80,6 +97,12 @@ public class UserController {
         return isLoggedIn;
     }
 
+    /**
+     * Retrieves a User by its ID.
+     *
+     * @param id The ID of the User.
+     * @return The retrieved User.
+     */
     @PermitAll
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public User getUserById(@PathVariable Integer id) {
@@ -87,6 +110,11 @@ public class UserController {
         return user;
     }
 
+    /**
+     * Allows a user to exit an Activity.
+     *
+     * @param id The ID of the Activity to exit.
+     */
     @PreAuthorize("hasAnyAuthority('USERTYPE_USER', 'USERTYPE_ORGANIZER')")
     @PostMapping(value = "/exit/{id}")
     public void exitActivity(@PathVariable Integer id) {
@@ -99,6 +127,13 @@ public class UserController {
         }
     }
 
+    /**
+     * Updates a User by its ID.
+     *
+     * @param id   The ID of the User.
+     * @param user The JSON representation of the updated User.
+     * @return ResponseEntity with a status of 200 if the update was successful, or appropriate error responses.
+     */
     @PermitAll
     @PutMapping(value = "/{id}")
     public ResponseEntity<Void> updateUser(@PathVariable Integer id, @RequestBody User user) {
@@ -125,6 +160,12 @@ public class UserController {
         return new ResponseEntity<>(headers, HttpStatus.OK);
     }
 
+    /**
+     * Removes a User by its ID.
+     *
+     * @param id The ID of the User to remove.
+     * @return ResponseEntity with a status of 200 if the removal was successful, or appropriate error responses.
+     */
     //@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @PutMapping(value = "/remove/{id}")
     public ResponseEntity<Void> removeUser(@PathVariable Integer id) {

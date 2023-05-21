@@ -198,18 +198,32 @@ public class Activity extends AbstractEntity{
         this.price = price;
     }
 
+    /**
+     * @return get min_age
+     */
     public Integer getMin_age() {
         return min_age;
     }
 
+    /**
+     * @param min_age
+     * set min_age
+     */
     public void setMin_age(Integer min_age) {
         this.min_age = min_age;
     }
 
+    /**
+     * @return get max_age
+     */
     public Integer getMax_age() {
         return max_age;
     }
 
+    /**
+     * @param max_age
+     * set max_age
+     */
     public void setMax_age(Integer max_age) {
         this.max_age = max_age;
     }
@@ -289,6 +303,11 @@ public class Activity extends AbstractEntity{
         this.category = category;
     }
 
+    /**
+     * Adds a participation to the list of participations for the activity.
+     *
+     * @param par The participation to be added.
+     */
     public void addParticipation(Participation par){
         if(participations_activity == null){
             participations_activity = new ArrayList<Participation>();
@@ -299,6 +318,11 @@ public class Activity extends AbstractEntity{
         participations_activity.add(par);
     }
 
+    /**
+     * Removes a participation from the list of participations for the activity.
+     *
+     * @param par The participation to be removed.
+     */
     public void removeParticipation(Participation par){
         Objects.requireNonNull(par);
         if(participations_activity == null){
@@ -307,6 +331,9 @@ public class Activity extends AbstractEntity{
         participations_activity.remove(par);
     }
 
+    /**
+     * @return get participations_activity
+     */
     public List<Participation> getParticipations() {
         return participations_activity;
     }

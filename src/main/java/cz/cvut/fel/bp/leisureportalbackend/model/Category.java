@@ -7,6 +7,9 @@ import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Model for categories
+ */
 @Entity
 @Table(name = "CATEGORY")
 public class Category extends AbstractEntity {
@@ -20,6 +23,9 @@ public class Category extends AbstractEntity {
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Activity> activities;
 
+    /**
+     * constructor
+     */
     public Category() {
     }
 
@@ -28,22 +34,44 @@ public class Category extends AbstractEntity {
         this.activities = new ArrayList<>();
     }
 
+    /**
+     * Adds an activity to the category.
+     *
+     * @param activity The activity to be added.
+     * @return true if the activity is added successfully, false otherwise.
+     */
     public boolean add(Activity activity){
         return activities.add(activity);
     }
 
+    /**
+     * @return get name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * @param name
+     * set name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * @return get activities
+     */
     public List<Activity> getActivities() {
         return activities;
     }
 
+    /**
+     * Adds an activity to the category.
+     *
+     * @param activity The activity to be added.
+     * @return true if the activity is added successfully, false otherwise.
+     */
     public boolean addActivity(Activity activity) {
         if (activity != null && !activities.contains(activity)) {
             activities.add(activity);
@@ -53,6 +81,12 @@ public class Category extends AbstractEntity {
         return false;
     }
 
+    /**
+     * Removes an activity from the category.
+     *
+     * @param activity The activity to be removed.
+     * @return true if the activity is removed successfully, false otherwise.
+     */
     public boolean removeActivity(Activity activity) {
         if (activity != null && activities.contains(activity)) {
             activities.remove(activity);

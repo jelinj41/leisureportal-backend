@@ -11,6 +11,9 @@ import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.annotation.PostConstruct;
 
+/**
+ * Defines how the system is initialized
+ */
 @Component
 public class SystemInitializer {
 

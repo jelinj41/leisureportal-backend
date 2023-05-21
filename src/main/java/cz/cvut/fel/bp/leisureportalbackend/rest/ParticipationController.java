@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller class for Participation
+ */
 @RestController
 @RequestMapping("/rest/participations")
 public class ParticipationController {
@@ -25,6 +28,13 @@ public class ParticipationController {
     private final ActivityService activityService;
     private final SecurityUtils securityUtils;
 
+    /**
+     * constructor
+     *
+     * @param participationService
+     * @param activityService
+     * @param securityUtils
+     */
     @Autowired
     public ParticipationController(ParticipationService participationService, ActivityService activityService, SecurityUtils securityUtils) {
         this.participationService = participationService;
@@ -32,6 +42,11 @@ public class ParticipationController {
         this.securityUtils = securityUtils;
     }
 
+    /**
+     * Updates a participation.
+     *
+     * @param participation The participation to update.
+     */
     @PreAuthorize("hasAnyAuthority('USERTYPE_ADMIN', 'USERTYPE_ORGANIZER')")
     @PutMapping(value = "/", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -40,6 +55,11 @@ public class ParticipationController {
         LOG.debug("Updated activity {}.", participation);
     }
 
+    /**
+     * Returns the participations of the currently authenticated user.
+     *
+     * @return The list of participations.
+     */
     @PreAuthorize("hasAnyAuthority('USERTYPE_ADMIN', 'USERTYPE_USER', 'USERTYPE_ORGANIZER')")
     @GetMapping(value = "/myParticipations")
     public List<Participation> myParticipations() {

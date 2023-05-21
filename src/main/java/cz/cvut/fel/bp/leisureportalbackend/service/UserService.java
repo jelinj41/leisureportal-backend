@@ -19,6 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Service for User
+ */
 @Service
 public class UserService {
 
@@ -41,17 +44,33 @@ public class UserService {
         this.passwordEncoder = passwordEncoder;
     }
 
-
+    /**
+     * Finds a user by ID.
+     *
+     * @param id The ID of the user.
+     * @return The found User object.
+     */
     @Transactional(readOnly = true)
     public User find(Integer id) {
         return dao.find(id);
     }
 
+    /**
+     * Finds a user by email.
+     *
+     * @param email The email of the user.
+     * @return The found User object.
+     */
     @Transactional(readOnly = true)
     public User findByEmail(String email) {
         return dao.findByEmail(email);
     }
 
+    /**
+     * Creates a new user.
+     *
+     * @param user The user to create.
+     */
     @Transactional
     public void createUser(User user) {
         Objects.requireNonNull(user);
@@ -63,7 +82,13 @@ public class UserService {
 
     }
 
-
+    /**
+     * Registers a user for an activity.
+     *
+     * @param activity The activity to register for.
+     * @param user     The user to register.
+     * @return True if the registration was successful, false otherwise.
+     */
     @Transactional
     public boolean registerForActivity(Activity activity, User user) {
         Objects.requireNonNull(activity);
@@ -86,6 +111,13 @@ public class UserService {
         }
     }
 
+    /**
+     * Removes a user from an activity.
+     *
+     * @param activity The activity to remove the user from.
+     * @param user     The user to remove.
+     * @return True if the user was successfully removed, false otherwise.
+     */
     @Transactional
     public boolean exitActivity(Activity activity, User user) {
         Objects.requireNonNull(activity);
@@ -115,16 +147,32 @@ public class UserService {
         return true;
     }
 
+    /**
+     * Checks if a user with the specified email already exists.
+     *
+     * @param email The email to check.
+     * @return True if a user with the email exists, false otherwise.
+     */
     @Transactional(readOnly = true)
     public boolean exists(String email) {
         return dao.findByEmail(email) != null;
     }
 
+    /**
+     * Removes a user.
+     *
+     * @param user The user to remove.
+     */
     @Transactional(readOnly = true)
     public void remove(User user) {
         dao.remove(user);
     }
 
+    /**
+     * Updates a user.
+     *
+     * @param user The user to update.
+     */
     @Transactional
     public void update(User user) {
         dao.update(user);

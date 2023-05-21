@@ -16,6 +16,9 @@ import javax.sql.DataSource;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Configuration class for the persistence layer of the application.
+ */
 @EnableConfigurationProperties({JpaProperties.class})
 @Configuration
 @EnableJpaRepositories("cz.cvut.fel.bp.leisureportalbackend.dao")
@@ -24,6 +27,14 @@ public class PersistenceConfig extends JpaBaseConfiguration {
 
     private final Environment environment;
 
+    /**
+     * Constructor for PersistenceConfig.
+     *
+     * @param dataSource           The data source for the persistence layer.
+     * @param properties           Properties for configuring JPA.
+     * @param jtaTransactionManager Object provider for the JTA transaction manager.
+     * @param environment          The environment object.
+     */
     protected PersistenceConfig(DataSource dataSource,
                                 JpaProperties properties,
                                 ObjectProvider<JtaTransactionManager> jtaTransactionManager,
@@ -32,11 +43,21 @@ public class PersistenceConfig extends JpaBaseConfiguration {
         this.environment = environment;
     }
 
+    /**
+     * Creates the JPA vendor adapter for EclipseLink.
+     *
+     * @return The configured JPA vendor adapter.
+     */
     @Override
     protected AbstractJpaVendorAdapter createJpaVendorAdapter() {
         return new EclipseLinkJpaVendorAdapter();
     }
 
+    /**
+     * Retrieves the vendor-specific properties for EclipseLink.
+     *
+     * @return The map of vendor properties.
+     */
     @Override
     protected Map<String, Object> getVendorProperties() {
         final Map<String, Object> props = new HashMap<>();

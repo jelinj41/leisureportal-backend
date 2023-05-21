@@ -34,6 +34,12 @@ public class Participation{
     @JoinColumn(name = "activity_Id")
     private Activity activity;
 
+    /**
+     * constructor
+     *
+     * @param participant
+     * @param activity
+     */
     public Participation(User participant, Activity activity) {
         this.user = participant;
         this.activity = activity;
@@ -42,22 +48,36 @@ public class Participation{
     public Participation() {
     }
 
+    /**
+     * @return get user
+     */
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "USER_ID")
     public User getUser() {
         return user;
     }
 
+    /**
+     * @param user
+     * set user
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
+    /**
+     * @return get activity
+     */
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ACTIVITY_ID")
     public Activity getActivity() {
         return activity;
     }
 
+    /**
+     * @param activity
+     * set activity
+     */
     public void setActivity(Activity activity) {
         this.activity = activity;
     }

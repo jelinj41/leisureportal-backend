@@ -19,7 +19,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
-
+/**
+ * Configuration class for the security part of the application.
+ */
 @Configuration
 @EnableWebSecurity
 @ComponentScan(basePackages = "cz.cvut.fel.bp.leisureportalbackend.security")
@@ -39,6 +41,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final AuthenticationProvider authenticationProvider;
 
+    /**
+     * Constructor for SecurityConfig.
+     *
+     * @param authenticationFailureHandler The authentication failure handler.
+     * @param authenticationSuccessHandler The authentication success handler.
+     * @param logoutSuccessHandler         The logout success handler.
+     * @param authenticationProvider       The authentication provider.
+     */
     @Autowired
     public SecurityConfig(AuthenticationFailureHandler authenticationFailureHandler,
                           AuthenticationSuccessHandler authenticationSuccessHandler,
@@ -50,17 +60,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         this.authenticationProvider = authenticationProvider;
     }
 
+    /**
+     * Configures the authentication manager builder with the specified authentication provider.
+     *
+     * @param auth The authentication manager builder.
+     * @throws Exception If an exception occurs during configuration.
+     */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider);
     }
 
+    /**
+     * Creates a bean for the authentication manager.
+     *
+     * @return The authentication manager bean.
+     * @throws Exception If an exception occurs while creating the bean.
+     */
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {
         return super.authenticationManagerBean();
     }
 
+    /**
+     * Configures the HTTP security for the application.
+     *
+     * @param http The HTTP security object.
+     * @throws Exception If an exception occurs during configuration.
+     */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().authorizeRequests().anyRequest().permitAll().and()
@@ -77,6 +105,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and().sessionManagement().maximumSessions(1);
     }
 
+    /**
+     * Configures web security by ignoring certain paths.
+     *
+     * @param web The web security object.
+     * @throws Exception If an exception occurs during configuration.
+     */
     @Override
     public void configure(WebSecurity web) throws Exception {
         web.ignoring().antMatchers("/","/login", "/upcomingactivities");

@@ -31,6 +31,14 @@ public class AuthenticationSuccess implements AuthenticationSuccessHandler, Logo
         this.mapper = mapper;
     }
 
+    /**
+     * Handles successful authentication.
+     *
+     * @param httpServletRequest  The HTTP request.
+     * @param httpServletResponse The HTTP response.
+     * @param authentication      The authentication object.
+     * @throws IOException If an I/O error occurs while writing the response.
+     */
     @Override
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                                         Authentication authentication) throws IOException {
@@ -44,6 +52,12 @@ public class AuthenticationSuccess implements AuthenticationSuccessHandler, Logo
         mapper.writeValue(httpServletResponse.getOutputStream(), loginStatus);
     }
 
+    /**
+     * Retrieves the username from the authentication object.
+     *
+     * @param authentication The authentication object.
+     * @return The username.
+     */
     private String getUsername(Authentication authentication) {
         if (authentication == null) {
             return "";
@@ -51,6 +65,14 @@ public class AuthenticationSuccess implements AuthenticationSuccessHandler, Logo
         return ((UserDetails) authentication.getPrincipal()).getUsername();
     }
 
+    /**
+     * Handles successful logout.
+     *
+     * @param httpServletRequest  The HTTP request.
+     * @param httpServletResponse The HTTP response.
+     * @param authentication      The authentication object.
+     * @throws IOException If an I/O error occurs while writing the response.
+     */
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                                 Authentication authentication) throws IOException {

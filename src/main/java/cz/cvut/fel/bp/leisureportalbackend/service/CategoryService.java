@@ -11,6 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Service for Category
+ */
 @Service
 public class CategoryService {
 
@@ -23,8 +26,10 @@ public class CategoryService {
 
 
     /**
-     * Create new Category.
-     * @param category
+     * Creates a new category.
+     *
+     * @param category The category to create.
+     * @throws NullPointerException if the category is null.
      */
     @Transactional
     public void create(Category category){
@@ -34,10 +39,12 @@ public class CategoryService {
 
 
     /**
-     * Update Category by id.
-     * @param id
-     * @param category
-     * @throws NotFoundException if category with this id is not in database.
+     * Updates a category by its ID.
+     *
+     * @param id       The ID of the category to update.
+     * @param category The updated category object.
+     * @throws NotFoundException if the category with the specified ID is not found.
+     * @throws NullPointerException if the category is null.
      */
     @Transactional
     public void update(Integer id, Category category) throws NotFoundException {
@@ -50,10 +57,11 @@ public class CategoryService {
 
 
     /**
-     * Get Category by id.
-     * @param id
-     * @return Category
-     * @throws NotFoundException if category with this id is not in database.
+     * Finds a category by its ID.
+     *
+     * @param id The ID of the category to find.
+     * @return The found Category object.
+     * @throws NotFoundException if the category with the specified ID is not found.
      */
     public Category find(Integer id) throws NotFoundException {
         Category found = categoryDao.find(id);
@@ -63,13 +71,20 @@ public class CategoryService {
 
 
     /**
-     * Get all categories from database.
-     * @return List<Category>
+     * Retrieves all categories.
+     *
+     * @return A list of all categories.
      */
     public List<Category> findAll(){
         return categoryDao.findAll();
     }
 
+    /**
+     * Finds categories by name.
+     *
+     * @param name The name to search for.
+     * @return A list of categories with the specified name.
+     */
     @Transactional(readOnly = true)
     public List<Category> findByName(String name) {
         return categoryDao.findByName(name);

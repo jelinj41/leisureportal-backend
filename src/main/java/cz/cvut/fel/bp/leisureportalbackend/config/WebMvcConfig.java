@@ -14,6 +14,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     private final long MAX_AGE_SECS = 3600;
 
+    /**
+     * Configures the Tomcat context customizer to handle same-site cookies.
+     *
+     * @return The Tomcat context customizer.
+     */
     @Bean
     public TomcatContextCustomizer sameSiteCookiesConfig() {
         return context -> {
@@ -23,6 +28,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
         };
     }
 
+    /**
+     * Configures CORS mappings.
+     *
+     * @param registry The CORS registry.
+     */
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
@@ -32,6 +42,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
                 .maxAge(MAX_AGE_SECS);
     }
 
+    /**
+     * Configures view controllers for forwarding requests.
+     *
+     * @param registry The view controller registry.
+     */
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/{spring:\\w+}")

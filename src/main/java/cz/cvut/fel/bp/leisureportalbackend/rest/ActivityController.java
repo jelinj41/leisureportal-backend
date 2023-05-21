@@ -25,6 +25,9 @@ import org.springframework.web.bind.annotation.*;
 import java.text.ParseException;
 import java.util.List;
 
+/**
+ * Controller class for Activity
+ */
 @RestController
 @RequestMapping("/rest/activities")
 public class ActivityController {
@@ -56,7 +59,13 @@ public class ActivityController {
         return activityService.findAll();
     }
 
-
+    /**
+     * Returns the activity with the specified ID.
+     *
+     * @param id The ID of the activity.
+     * @return The activity with the specified ID.
+     * @throws NotFoundException If the activity is not found.
+     */
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Activity getActivityById(@PathVariable Integer id) throws NotFoundException {
         final Activity a = activityService.find(id);
@@ -66,6 +75,13 @@ public class ActivityController {
         return a;
     }
 
+    /**
+     * Removes an  activity.
+     *
+     * @param id The activity id to be removed.
+     * @return ResponseEntity with HTTP status 201 CREATED and location header.
+     * @throws NotFoundException If there is an error parsing the activity data.
+     */
     //@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ORGANIZER')")
     @DeleteMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
@@ -76,9 +92,11 @@ public class ActivityController {
     }
 
     /**
-     * Creates new Activity.
+     * Creates a new activity.
      *
-     * @param activity Activity to create.
+     * @param activity The activity to create.
+     * @return ResponseEntity with HTTP status 201 CREATED and location header.
+     * @throws ParseException If there is an error parsing the activity data.
      */
     @PreAuthorize("hasAnyAuthority('USERTYPE_ADMIN', 'USERTYPE_ORGANIZER')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -90,10 +108,12 @@ public class ActivityController {
     }
 
     /**
-     * Updates race
+     * Updates an activity.
      *
-     * @param id Activity_id to update
-     * @param activity new Activity data
+     * @param id       The ID of the activity to update.
+     * @param activity The new activity data.
+     * @throws NotFoundException   If the activity is not found.
+     * @throws ValidationException If there is a validation error.
      */
     //@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ORGANIZER')")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -108,9 +128,11 @@ public class ActivityController {
     }
 
     /**
-     * Returns participants in activity.
+     * Returns the participants in an activity.
      *
-     * @param id Activity id
+     * @param id The ID of the activity.
+     * @return The list of participants in the activity.
+     * @throws NotFoundException If the activity is not found.
      */
     @GetMapping(value = "/participants/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<User> getParticipantsInActivity(@PathVariable Integer id) throws NotFoundException {
@@ -122,9 +144,11 @@ public class ActivityController {
     }
 
     /**
-     * Returns activities from a city.
+     * Returns activities in a city.
      *
-     * @param name Circuit name
+     * @param name The name of the city.
+     * @return The list of activities in the city.
+     * @throws NotFoundException If the city is not found.
      */
     @GetMapping(value = "/city/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Activity> getActivityByCity(@PathVariable String name) throws NotFoundException {
@@ -137,9 +161,11 @@ public class ActivityController {
     }
 
     /**
-     * Returns activities from a category.
+     * Returns activities in a category.
      *
-     * @param name Circuit name
+     * @param name The name of the category.
+     * @return The list of activities in the category.
+     * @throws NotFoundException If the category is not found.
      */
     @GetMapping(value = "/category/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Activity> getActivitiesByCategory(@PathVariable String name) throws NotFoundException {

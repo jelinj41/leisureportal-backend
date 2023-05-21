@@ -23,6 +23,9 @@ import java.security.Principal;
 import java.sql.SQLException;
 import java.util.List;
 
+/**
+ * Controller class for Address
+ */
 @RestController
 @RequestMapping(value = "/rest/addresses", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AddressController {
@@ -40,12 +43,22 @@ public class AddressController {
         this.securityUtils = securityUtils;
     }
 
+    /**
+     * Returns all addresses.
+     */
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Address> getAddresses() {
         return addressService.findAll();
     }
 
 
+    /**
+     * Adds a new address.
+     *
+     * @param address   The address to add.
+     * @param principal The authenticated principal.
+     * @return ResponseEntity with HTTP status 201 CREATED and location header.
+     */
     //@PermitAll
     @PreAuthorize("hasAnyAuthority('USERTYPE_ADMIN', 'USERTYPE_ORGANIZER')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -60,6 +73,13 @@ public class AddressController {
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
+    /**
+     * Returns the address with the specified ID.
+     *
+     * @param id The ID of the address.
+     * @return The address with the specified ID.
+     * @throws NotFoundException If the address is not found.
+     */
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public Address getAddress(@PathVariable Integer id) throws NotFoundException {
         final Address a = addressService.find(id);
@@ -69,6 +89,13 @@ public class AddressController {
         return a;
     }
 
+    /**
+     * Removes an address.
+     *
+     * @param id The address id to be removed.
+     * @return ResponseEntity with HTTP status 201 CREATED and location header.
+     * @throws SQLException If there is an error parsing the address data.
+     */
     //@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_ORGANIZER')")
     @PutMapping(value = "/remove/{id}")
     public ResponseEntity<Void> removeAddress(@PathVariable Integer id) throws SQLException {
@@ -91,12 +118,24 @@ public class AddressController {
             return new ResponseEntity<>(headers, HttpStatus.NOT_FOUND);
         }
     }
+
+    /**
+     * Returns addresses in a city.
+     *
+     * @param loc The name of the city.
+     * @return The list of addresses in the city.
+     */
     @GetMapping(value = "/location/{loc}", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Address> getAddressByCity(@PathVariable String loc) {
         final List<Address> c = addressService.findByCity(loc);
         return c;
     }
 
+    /**
+     * Returns addresses belonging to the currently authenticated user.
+     *
+     * @return The list of addresses.
+     */
     @PreAuthorize("hasAnyAuthority('USERTYPE_ORGANIZER')")
     @GetMapping(value = "/myAddresses", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Address> myAddresses() {
@@ -104,7 +143,13 @@ public class AddressController {
         final List<Address> addresses = addressService.findByUser(user);
         return addresses;
     }
-    
+
+    /**
+     * Updates an address.
+     *
+     * @param id       The ID of the address to update.
+     * @param address The new address data.
+     */
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)

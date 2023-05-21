@@ -28,6 +28,14 @@ public class AuthenticationFailure implements AuthenticationFailureHandler {
         this.mapper = mapper;
     }
 
+    /**
+     * Handles authentication failure.
+     *
+     * @param httpServletRequest  The HTTP request.
+     * @param httpServletResponse The HTTP response.
+     * @param e                   The authentication exception.
+     * @throws IOException If an I/O error occurs while writing the response.
+     */
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse,
                                         AuthenticationException e) throws IOException {

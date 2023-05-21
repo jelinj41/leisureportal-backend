@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * Controller class for Category
+ */
 @RestController
 @RequestMapping("/rest/categories")
 public class CategoryController {
@@ -28,20 +31,21 @@ public class CategoryController {
     }
 
     /**
-     * Method find all Categories.
-     * @return response with list of Categories
+     * Retrieves all Categories.
+     *
+     * @return ResponseEntity containing the list of Categories.
      */
-
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Category>> getAll() {
         return ResponseEntity.status(HttpStatus.OK).body(categoryService.findAll());
     }
 
     /**
-     * Method find and return Category by id.
-     * @param id
-     * @return response with Category
-     * @throws NotFoundException - when Category was not found
+     * Retrieves a Category by its ID.
+     *
+     * @param id The ID of the Category.
+     * @return ResponseEntity containing the retrieved Category.
+     * @throws NotFoundException If the Category was not found.
      */
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Category> get(@PathVariable Integer id) throws NotFoundException {
@@ -49,9 +53,10 @@ public class CategoryController {
     }
 
     /**
-     * Create new Category. Available only for user with ADMIN role.
-     * @param category - JSON representation of Category
-     * @return response 201
+     * Creates a new Category. Only accessible by users with the ADMIN role.
+     *
+     * @param category The JSON representation of the Category.
+     * @return ResponseEntity with a status of 201.
      */
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -63,11 +68,12 @@ public class CategoryController {
     }
 
     /**
-     * Update of Category by id. Available only for user with ADMIN role.
-     * @param id
-     * @param category - JSON representation of updated Category
-     * @return response 204
-     * @throws NotFoundException - when category was not found
+     * Updates a Category by its ID. Only accessible by users with the ADMIN role.
+     *
+     * @param id       The ID of the Category.
+     * @param category The JSON representation of the updated Category.
+     * @return ResponseEntity with a status of 204.
+     * @throws NotFoundException If the Category was not found.
      */
     //@PreAuthorize("hasRole('ROLE_ADMIN')")
     @PatchMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)

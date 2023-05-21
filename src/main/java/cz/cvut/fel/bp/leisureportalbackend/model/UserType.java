@@ -3,7 +3,7 @@ package cz.cvut.fel.bp.leisureportalbackend.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
- * Enum for user types in the system - user, admin, organizer
+ * Enum for user types in the system - user, admin, organizer, guest
  */
 public enum UserType {
 

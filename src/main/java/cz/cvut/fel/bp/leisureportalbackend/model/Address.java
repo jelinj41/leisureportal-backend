@@ -112,11 +112,17 @@ public class Address extends AbstractEntity {
         return country;
     }
 
-
+    /**
+     * @return get author
+     */
     public User getAuthor() {
         return author;
     }
 
+    /**
+     * @param author
+     * set author
+     */
     public void setAuthor(User author) {
         this.author = author;
     }
